@@ -1,0 +1,560 @@
+[2023-10-05T14:22:39.049340 43933] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.049340 43933] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) base_dir = 
+[2023-10-05T14:22:39.049340 43933] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.049340 43933] Config: (default) compiler = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.049340 43933] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.049340 43933] Config: (default) compression = true
+[2023-10-05T14:22:39.049340 43933] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.049340 43933] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) debug = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.049340 43933] Config: (default) disable = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) file_clone = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) hard_link = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.049340 43933] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.049340 43933] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.049340 43933] Config: (default) max_files = 0
+[2023-10-05T14:22:39.049340 43933] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.049340 43933] Config: (default) namespace = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) path = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) read_only = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) recache = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) reshare = false
+[2023-10-05T14:22:39.049340 43933] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.049340 43933] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.049340 43933] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.049340 43933] Config: (default) stats = true
+[2023-10-05T14:22:39.049340 43933] Config: (default) stats_log = 
+[2023-10-05T14:22:39.049340 43933] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.049340 43933] Config: (default) umask = 
+[2023-10-05T14:22:39.049391 43933] Command line: /usr/bin/ccache /usr/bin/gcc -o __constants.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src __constants.c
+[2023-10-05T14:22:39.049400 43933] Hostname: pop-os
+[2023-10-05T14:22:39.049401 43933] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.049403 43933] Compiler type: gcc
+[2023-10-05T14:22:39.049452 43933] Source file: __constants.c
+[2023-10-05T14:22:39.049454 43933] Object file: __constants.o
+[2023-10-05T14:22:39.049463 43933] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.049466 43933] Trying direct lookup
+[2023-10-05T14:22:39.049633 43935] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.049633 43935] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) base_dir = 
+[2023-10-05T14:22:39.049633 43935] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.049633 43935] Config: (default) compiler = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.049633 43935] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.049633 43935] Config: (default) compression = true
+[2023-10-05T14:22:39.049633 43935] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.049633 43935] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) debug = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.049633 43935] Config: (default) disable = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) file_clone = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) hard_link = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.049633 43935] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.049633 43935] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.049633 43935] Config: (default) max_files = 0
+[2023-10-05T14:22:39.049633 43935] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.049633 43935] Config: (default) namespace = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) path = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) read_only = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) recache = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) reshare = false
+[2023-10-05T14:22:39.049633 43935] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.049633 43935] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.049633 43935] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.049633 43935] Config: (default) stats = true
+[2023-10-05T14:22:39.049633 43935] Config: (default) stats_log = 
+[2023-10-05T14:22:39.049633 43935] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.049633 43935] Config: (default) umask = 
+[2023-10-05T14:22:39.049671 43935] Command line: /usr/bin/ccache /usr/bin/gcc -o __helpers.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src __helpers.c
+[2023-10-05T14:22:39.049680 43935] Hostname: pop-os
+[2023-10-05T14:22:39.049682 43935] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.049683 43935] Compiler type: gcc
+[2023-10-05T14:22:39.049727 43935] Source file: __helpers.c
+[2023-10-05T14:22:39.049729 43935] Object file: __helpers.o
+[2023-10-05T14:22:39.049735 43935] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.049737 43935] Trying direct lookup
+[2023-10-05T14:22:39.049762 43935] No 45c8agr1g4klfe2tm5a42f7geo7df2kng in primary storage
+[2023-10-05T14:22:39.049794 43935] Running preprocessor
+[2023-10-05T14:22:39.049798 43935] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E __helpers.c
+[2023-10-05T14:22:39.052658 43940] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.052658 43940] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) base_dir = 
+[2023-10-05T14:22:39.052658 43940] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.052658 43940] Config: (default) compiler = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.052658 43940] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.052658 43940] Config: (default) compression = true
+[2023-10-05T14:22:39.052658 43940] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.052658 43940] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) debug = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.052658 43940] Config: (default) disable = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) file_clone = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) hard_link = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.052658 43940] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.052658 43940] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.052658 43940] Config: (default) max_files = 0
+[2023-10-05T14:22:39.052658 43940] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.052658 43940] Config: (default) namespace = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) path = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) read_only = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) recache = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) reshare = false
+[2023-10-05T14:22:39.052658 43940] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.052658 43940] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.052658 43940] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.052658 43940] Config: (default) stats = true
+[2023-10-05T14:22:39.052658 43940] Config: (default) stats_log = 
+[2023-10-05T14:22:39.052658 43940] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.052658 43940] Config: (default) umask = 
+[2023-10-05T14:22:39.052706 43940] Command line: /usr/bin/ccache /usr/bin/gcc -o __loader.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src __loader.c
+[2023-10-05T14:22:39.052717 43940] Hostname: pop-os
+[2023-10-05T14:22:39.052719 43940] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.052721 43940] Compiler type: gcc
+[2023-10-05T14:22:39.052770 43940] Source file: __loader.c
+[2023-10-05T14:22:39.052773 43940] Object file: __loader.o
+[2023-10-05T14:22:39.052780 43940] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.052784 43940] Trying direct lookup
+[2023-10-05T14:22:39.052814 43940] No ca1btf141lst02fbqp3p943n168mnvg1m in primary storage
+[2023-10-05T14:22:39.052848 43940] Running preprocessor
+[2023-10-05T14:22:39.052853 43940] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E __loader.c
+[2023-10-05T14:22:39.056159 43945] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.056159 43945] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) base_dir = 
+[2023-10-05T14:22:39.056159 43945] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.056159 43945] Config: (default) compiler = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.056159 43945] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.056159 43945] Config: (default) compression = true
+[2023-10-05T14:22:39.056159 43945] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.056159 43945] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) debug = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.056159 43945] Config: (default) disable = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) file_clone = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) hard_link = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.056159 43945] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.056159 43945] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.056159 43945] Config: (default) max_files = 0
+[2023-10-05T14:22:39.056159 43945] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.056159 43945] Config: (default) namespace = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) path = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) read_only = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) recache = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) reshare = false
+[2023-10-05T14:22:39.056159 43945] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.056159 43945] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.056159 43945] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.056159 43945] Config: (default) stats = true
+[2023-10-05T14:22:39.056159 43945] Config: (default) stats_log = 
+[2023-10-05T14:22:39.056159 43945] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.056159 43945] Config: (default) umask = 
+[2023-10-05T14:22:39.056208 43945] Command line: /usr/bin/ccache /usr/bin/gcc -o module.__main__.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src module.__main__.c
+[2023-10-05T14:22:39.056219 43945] Hostname: pop-os
+[2023-10-05T14:22:39.056221 43945] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.056223 43945] Compiler type: gcc
+[2023-10-05T14:22:39.056274 43945] Source file: module.__main__.c
+[2023-10-05T14:22:39.056276 43945] Object file: module.__main__.o
+[2023-10-05T14:22:39.056284 43945] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.056286 43945] Trying direct lookup
+[2023-10-05T14:22:39.059116 43945] No a6c84mblhgic9jf1ca74e4892hh3t4itc in primary storage
+[2023-10-05T14:22:39.059135 43933] No 915akr8hpfa88qtjp5ars3las9il1548m in primary storage
+[2023-10-05T14:22:39.059169 43945] Running preprocessor
+[2023-10-05T14:22:39.059175 43945] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E module.__main__.c
+[2023-10-05T14:22:39.059187 43933] Running preprocessor
+[2023-10-05T14:22:39.059193 43933] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E __constants.c
+[2023-10-05T14:22:39.060884 43950] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.060884 43950] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) base_dir = 
+[2023-10-05T14:22:39.060884 43950] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.060884 43950] Config: (default) compiler = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.060884 43950] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.060884 43950] Config: (default) compression = true
+[2023-10-05T14:22:39.060884 43950] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.060884 43950] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) debug = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.060884 43950] Config: (default) disable = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) file_clone = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) hard_link = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.060884 43950] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.060884 43950] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.060884 43950] Config: (default) max_files = 0
+[2023-10-05T14:22:39.060884 43950] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.060884 43950] Config: (default) namespace = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) path = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) read_only = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) recache = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) reshare = false
+[2023-10-05T14:22:39.060884 43950] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.060884 43950] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.060884 43950] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.060884 43950] Config: (default) stats = true
+[2023-10-05T14:22:39.060884 43950] Config: (default) stats_log = 
+[2023-10-05T14:22:39.060884 43950] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.060884 43950] Config: (default) umask = 
+[2023-10-05T14:22:39.060933 43950] Command line: /usr/bin/ccache /usr/bin/gcc -o module._virtualenv.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src module._virtualenv.c
+[2023-10-05T14:22:39.060943 43950] Hostname: pop-os
+[2023-10-05T14:22:39.060945 43950] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.060946 43950] Compiler type: gcc
+[2023-10-05T14:22:39.061001 43950] Source file: module._virtualenv.c
+[2023-10-05T14:22:39.061003 43950] Object file: module._virtualenv.o
+[2023-10-05T14:22:39.061010 43950] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.061013 43950] Trying direct lookup
+[2023-10-05T14:22:39.061170 43950] No d500cslsifembmsb6kbeajph1fpdeq1ee in primary storage
+[2023-10-05T14:22:39.061210 43950] Running preprocessor
+[2023-10-05T14:22:39.061215 43950] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E module._virtualenv.c
+[2023-10-05T14:22:39.064651 43957] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.064651 43957] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) base_dir = 
+[2023-10-05T14:22:39.064651 43957] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.064651 43957] Config: (default) compiler = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.064651 43957] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.064651 43957] Config: (default) compression = true
+[2023-10-05T14:22:39.064651 43957] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.064651 43957] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) debug = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.064651 43957] Config: (default) disable = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) file_clone = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) hard_link = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.064651 43957] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.064651 43957] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.064651 43957] Config: (default) max_files = 0
+[2023-10-05T14:22:39.064651 43957] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.064651 43957] Config: (default) namespace = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) path = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) read_only = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) recache = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) reshare = false
+[2023-10-05T14:22:39.064651 43957] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.064651 43957] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.064651 43957] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.064651 43957] Config: (default) stats = true
+[2023-10-05T14:22:39.064651 43957] Config: (default) stats_log = 
+[2023-10-05T14:22:39.064651 43957] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.064651 43957] Config: (default) umask = 
+[2023-10-05T14:22:39.064712 43957] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/MainProgram.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src static_src/MainProgram.c
+[2023-10-05T14:22:39.064724 43957] Hostname: pop-os
+[2023-10-05T14:22:39.064725 43957] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.064727 43957] Compiler type: gcc
+[2023-10-05T14:22:39.064780 43957] Source file: static_src/MainProgram.c
+[2023-10-05T14:22:39.064782 43957] Object file: static_src/MainProgram.o
+[2023-10-05T14:22:39.064793 43957] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.064796 43957] Trying direct lookup
+[2023-10-05T14:22:39.065053 43957] No f0916gbj2pn3ondod3u6lsghkh9edl87i in primary storage
+[2023-10-05T14:22:39.065117 43957] Running preprocessor
+[2023-10-05T14:22:39.065125 43957] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E static_src/MainProgram.c
+[2023-10-05T14:22:39.091177 43940] Got result key from preprocessor
+[2023-10-05T14:22:39.091366 43940] No 1ce28775nkhk8kinooeb9lbope8p10g6m in primary storage
+[2023-10-05T14:22:39.091375 43940] Running real compiler
+[2023-10-05T14:22:39.091396 43940] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __loader.o __loader.c
+[2023-10-05T14:22:39.106724 43935] Got result key from preprocessor
+[2023-10-05T14:22:39.107059 43935] No 2ac6u616q1popbjqoaolldvi1aakgruce in primary storage
+[2023-10-05T14:22:39.107073 43935] Running real compiler
+[2023-10-05T14:22:39.107096 43935] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __helpers.o __helpers.c
+[2023-10-05T14:22:39.116347 43933] Got result key from preprocessor
+[2023-10-05T14:22:39.116387 43933] No 1702jhmethujqrnp81a3ih1mocgt8ou2q in primary storage
+[2023-10-05T14:22:39.116393 43933] Running real compiler
+[2023-10-05T14:22:39.116417 43933] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __constants.o __constants.c
+[2023-10-05T14:22:39.120992 43971] === CCACHE 4.5.1 STARTED =========================================
+[2023-10-05T14:22:39.120992 43971] Config: (default) absolute_paths_in_stderr = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) base_dir = 
+[2023-10-05T14:22:39.120992 43971] Config: (environment) cache_dir = /home/elias/.cache/Nuitka/ccache
+[2023-10-05T14:22:39.120992 43971] Config: (default) compiler = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) compiler_check = mtime
+[2023-10-05T14:22:39.120992 43971] Config: (default) compiler_type = auto
+[2023-10-05T14:22:39.120992 43971] Config: (default) compression = true
+[2023-10-05T14:22:39.120992 43971] Config: (default) compression_level = 0
+[2023-10-05T14:22:39.120992 43971] Config: (default) cpp_extension = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) debug = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) debug_dir = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) depend_mode = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) direct_mode = true
+[2023-10-05T14:22:39.120992 43971] Config: (default) disable = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) extra_files_to_hash = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) file_clone = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) hard_link = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) hash_dir = true
+[2023-10-05T14:22:39.120992 43971] Config: (default) ignore_headers_in_manifest = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) ignore_options = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) inode_cache = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) keep_comments_cpp = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) limit_multiple = 0.8
+[2023-10-05T14:22:39.120992 43971] Config: (environment) log_file = /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build/ccache-43909.txt
+[2023-10-05T14:22:39.120992 43971] Config: (default) max_files = 0
+[2023-10-05T14:22:39.120992 43971] Config: (default) max_size = 5.0G
+[2023-10-05T14:22:39.120992 43971] Config: (default) namespace = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) path = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) pch_external_checksum = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) prefix_command = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) prefix_command_cpp = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) read_only = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) read_only_direct = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) recache = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) reshare = false
+[2023-10-05T14:22:39.120992 43971] Config: (default) run_second_cpp = true
+[2023-10-05T14:22:39.120992 43971] Config: (default) secondary_storage = 
+[2023-10-05T14:22:39.120992 43971] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-10-05T14:22:39.120992 43971] Config: (default) stats = true
+[2023-10-05T14:22:39.120992 43971] Config: (default) stats_log = 
+[2023-10-05T14:22:39.120992 43971] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2023-10-05T14:22:39.120992 43971] Config: (default) umask = 
+[2023-10-05T14:22:39.121055 43971] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/CompiledFunctionType.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Werror -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src static_src/CompiledFunctionType.c
+[2023-10-05T14:22:39.121072 43971] Hostname: pop-os
+[2023-10-05T14:22:39.121075 43971] Working directory: /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.121078 43971] Compiler type: gcc
+[2023-10-05T14:22:39.121164 43971] Source file: static_src/CompiledFunctionType.c
+[2023-10-05T14:22:39.121168 43971] Object file: static_src/CompiledFunctionType.o
+[2023-10-05T14:22:39.121179 43971] Hashing CWD /home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/programs/test.build
+[2023-10-05T14:22:39.121184 43971] Trying direct lookup
+[2023-10-05T14:22:39.121335 43971] No 938ca9bla03n2jek78a73fg99bn2h8396 in primary storage
+[2023-10-05T14:22:39.121337 43945] Got result key from preprocessor
+[2023-10-05T14:22:39.121361 43945] No 77b01fnsik9ginms0s7lq0m0l3ageq9js in primary storage
+[2023-10-05T14:22:39.121365 43945] Running real compiler
+[2023-10-05T14:22:39.121383 43945] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o module.__main__.o module.__main__.c
+[2023-10-05T14:22:39.121390 43971] Running preprocessor
+[2023-10-05T14:22:39.121398 43971] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -E static_src/CompiledFunctionType.c
+[2023-10-05T14:22:39.124034 43950] Got result key from preprocessor
+[2023-10-05T14:22:39.124071 43950] No 0a95ueh4d0d1v55fcu44o73u29in9gtg2 in primary storage
+[2023-10-05T14:22:39.124076 43950] Running real compiler
+[2023-10-05T14:22:39.124099 43950] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o module._virtualenv.o module._virtualenv.c
+[2023-10-05T14:22:39.126621 43957] Got result key from preprocessor
+[2023-10-05T14:22:39.126657 43957] No 72d0t9o0hmvme0ncs2etahqpf0bq18dqi in primary storage
+[2023-10-05T14:22:39.126666 43957] Running real compiler
+[2023-10-05T14:22:39.126694 43957] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/MainProgram.o static_src/MainProgram.c
+[2023-10-05T14:22:39.145162 43940] Using default compression level 1
+[2023-10-05T14:22:39.145241 43940] Storing result file __loader.o
+[2023-10-05T14:22:39.145249 43940] Storing embedded file #0 .o (31720 bytes) from __loader.o
+[2023-10-05T14:22:39.145513 43940] Stored 1ce28775nkhk8kinooeb9lbope8p10g6m in primary storage (/home/elias/.cache/Nuitka/ccache/1/c/e28775nkhk8kinooeb9lbope8p10g6mR)
+[2023-10-05T14:22:39.145539 43940] Adding result key to /home/elias/.cache/Nuitka/ccache/c/a/1btf141lst02fbqp3p943n168mnvg1mM
+[2023-10-05T14:22:39.146012 43940] Using default compression level 1
+[2023-10-05T14:22:39.146314 43940] Stored ca1btf141lst02fbqp3p943n168mnvg1m in primary storage (/home/elias/.cache/Nuitka/ccache/c/a/1btf141lst02fbqp3p943n168mnvg1mM)
+[2023-10-05T14:22:39.146338 43940] Result: cache_miss
+[2023-10-05T14:22:39.146341 43940] Result: direct_cache_miss
+[2023-10-05T14:22:39.146344 43940] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.146346 43940] Result: primary_storage_miss
+[2023-10-05T14:22:39.146395 43940] Acquired lock /home/elias/.cache/Nuitka/ccache/c/stats.lock
+[2023-10-05T14:22:39.146534 43940] Releasing lock /home/elias/.cache/Nuitka/ccache/c/stats.lock
+[2023-10-05T14:22:39.146551 43940] Unlink /home/elias/.cache/Nuitka/ccache/c/stats.lock
+[2023-10-05T14:22:39.146572 43940] Acquired lock /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.146648 43940] Releasing lock /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.146661 43940] Unlink /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.146673 43940] Unlink /run/user/1000/ccache-tmp/tmp.stderr.HdtSUF
+[2023-10-05T14:22:39.146679 43940] Unlink /run/user/1000/ccache-tmp/tmp.stdout.KHV0ty
+[2023-10-05T14:22:39.146684 43940] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.1B79Mo
+[2023-10-05T14:22:39.146689 43940] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Gu9yzx.i
+[2023-10-05T14:22:39.146766 43940] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Gu9yzx
+[2023-10-05T14:22:39.186559 43935] Using default compression level 1
+[2023-10-05T14:22:39.186622 43935] Storing result file __helpers.o
+[2023-10-05T14:22:39.186626 43935] Storing embedded file #0 .o (5648 bytes) from __helpers.o
+[2023-10-05T14:22:39.186721 43935] Stored 2ac6u616q1popbjqoaolldvi1aakgruce in primary storage (/home/elias/.cache/Nuitka/ccache/2/a/c6u616q1popbjqoaolldvi1aakgruceR)
+[2023-10-05T14:22:39.186739 43935] Adding result key to /home/elias/.cache/Nuitka/ccache/4/5/c8agr1g4klfe2tm5a42f7geo7df2kngM
+[2023-10-05T14:22:39.187165 43935] Using default compression level 1
+[2023-10-05T14:22:39.187530 43935] Stored 45c8agr1g4klfe2tm5a42f7geo7df2kng in primary storage (/home/elias/.cache/Nuitka/ccache/4/5/c8agr1g4klfe2tm5a42f7geo7df2kngM)
+[2023-10-05T14:22:39.187543 43935] Result: cache_miss
+[2023-10-05T14:22:39.187545 43935] Result: direct_cache_miss
+[2023-10-05T14:22:39.187547 43935] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.187549 43935] Result: primary_storage_miss
+[2023-10-05T14:22:39.187589 43935] Acquired lock /home/elias/.cache/Nuitka/ccache/4/stats.lock
+[2023-10-05T14:22:39.187690 43935] Releasing lock /home/elias/.cache/Nuitka/ccache/4/stats.lock
+[2023-10-05T14:22:39.187701 43935] Unlink /home/elias/.cache/Nuitka/ccache/4/stats.lock
+[2023-10-05T14:22:39.187713 43935] Acquired lock /home/elias/.cache/Nuitka/ccache/2/stats.lock
+[2023-10-05T14:22:39.187764 43935] Releasing lock /home/elias/.cache/Nuitka/ccache/2/stats.lock
+[2023-10-05T14:22:39.187772 43935] Unlink /home/elias/.cache/Nuitka/ccache/2/stats.lock
+[2023-10-05T14:22:39.187779 43935] Unlink /run/user/1000/ccache-tmp/tmp.stderr.p0huuF
+[2023-10-05T14:22:39.187783 43935] Unlink /run/user/1000/ccache-tmp/tmp.stdout.1xJOav
+[2023-10-05T14:22:39.187786 43935] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.kX7lGP
+[2023-10-05T14:22:39.187789 43935] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.tfFI1i.i
+[2023-10-05T14:22:39.187879 43935] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.tfFI1i
+[2023-10-05T14:22:39.221314 43933] Using default compression level 1
+[2023-10-05T14:22:39.221394 43933] Storing result file __constants.o
+[2023-10-05T14:22:39.221398 43933] Storing embedded file #0 .o (127568 bytes) from __constants.o
+[2023-10-05T14:22:39.221984 43933] Stored 1702jhmethujqrnp81a3ih1mocgt8ou2q in primary storage (/home/elias/.cache/Nuitka/ccache/1/7/02jhmethujqrnp81a3ih1mocgt8ou2qR)
+[2023-10-05T14:22:39.222004 43933] Adding result key to /home/elias/.cache/Nuitka/ccache/9/1/5akr8hpfa88qtjp5ars3las9il1548mM
+[2023-10-05T14:22:39.222447 43933] Using default compression level 1
+[2023-10-05T14:22:39.222752 43933] Stored 915akr8hpfa88qtjp5ars3las9il1548m in primary storage (/home/elias/.cache/Nuitka/ccache/9/1/5akr8hpfa88qtjp5ars3las9il1548mM)
+[2023-10-05T14:22:39.222764 43933] Result: cache_miss
+[2023-10-05T14:22:39.222766 43933] Result: direct_cache_miss
+[2023-10-05T14:22:39.222767 43933] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.222769 43933] Result: primary_storage_miss
+[2023-10-05T14:22:39.222807 43933] Acquired lock /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:39.222901 43933] Releasing lock /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:39.222923 43933] Unlink /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:39.222936 43933] Acquired lock /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.222993 43933] Releasing lock /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.223001 43933] Unlink /home/elias/.cache/Nuitka/ccache/1/stats.lock
+[2023-10-05T14:22:39.223019 43933] Unlink /run/user/1000/ccache-tmp/tmp.stderr.YjbmSh
+[2023-10-05T14:22:39.223023 43933] Unlink /run/user/1000/ccache-tmp/tmp.stdout.qmtL97
+[2023-10-05T14:22:39.223026 43933] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.AH58EQ
+[2023-10-05T14:22:39.223029 43933] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.YGuoqQ.i
+[2023-10-05T14:22:39.223120 43933] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.YGuoqQ
+[2023-10-05T14:22:39.234504 43957] Using default compression level 1
+[2023-10-05T14:22:39.234572 43957] Storing result file static_src/MainProgram.o
+[2023-10-05T14:22:39.234577 43957] Storing embedded file #0 .o (193440 bytes) from static_src/MainProgram.o
+[2023-10-05T14:22:39.235292 43957] Stored 72d0t9o0hmvme0ncs2etahqpf0bq18dqi in primary storage (/home/elias/.cache/Nuitka/ccache/7/2/d0t9o0hmvme0ncs2etahqpf0bq18dqiR)
+[2023-10-05T14:22:39.235317 43957] Adding result key to /home/elias/.cache/Nuitka/ccache/f/0/916gbj2pn3ondod3u6lsghkh9edl87iM
+[2023-10-05T14:22:39.235710 43957] Using default compression level 1
+[2023-10-05T14:22:39.236131 43957] Stored f0916gbj2pn3ondod3u6lsghkh9edl87i in primary storage (/home/elias/.cache/Nuitka/ccache/f/0/916gbj2pn3ondod3u6lsghkh9edl87iM)
+[2023-10-05T14:22:39.236149 43957] Result: cache_miss
+[2023-10-05T14:22:39.236151 43957] Result: direct_cache_miss
+[2023-10-05T14:22:39.236153 43957] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.236154 43957] Result: primary_storage_miss
+[2023-10-05T14:22:39.236193 43957] Acquired lock /home/elias/.cache/Nuitka/ccache/f/stats.lock
+[2023-10-05T14:22:39.236288 43957] Releasing lock /home/elias/.cache/Nuitka/ccache/f/stats.lock
+[2023-10-05T14:22:39.236299 43957] Unlink /home/elias/.cache/Nuitka/ccache/f/stats.lock
+[2023-10-05T14:22:39.236318 43957] Acquired lock /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.236778 43957] Releasing lock /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.236788 43957] Unlink /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.236796 43957] Unlink /run/user/1000/ccache-tmp/tmp.stderr.0ODPe7
+[2023-10-05T14:22:39.236799 43957] Unlink /run/user/1000/ccache-tmp/tmp.stdout.aJx31M
+[2023-10-05T14:22:39.236803 43957] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.BVVOZn
+[2023-10-05T14:22:39.236805 43957] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.ZO0VSm.i
+[2023-10-05T14:22:39.236900 43957] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.ZO0VSm
+[2023-10-05T14:22:39.255765 43945] Using default compression level 1
+[2023-10-05T14:22:39.255825 43945] Storing result file module.__main__.o
+[2023-10-05T14:22:39.255830 43945] Storing embedded file #0 .o (313168 bytes) from module.__main__.o
+[2023-10-05T14:22:39.256839 43945] Stored 77b01fnsik9ginms0s7lq0m0l3ageq9js in primary storage (/home/elias/.cache/Nuitka/ccache/7/7/b01fnsik9ginms0s7lq0m0l3ageq9jsR)
+[2023-10-05T14:22:39.256862 43945] Adding result key to /home/elias/.cache/Nuitka/ccache/a/6/c84mblhgic9jf1ca74e4892hh3t4itcM
+[2023-10-05T14:22:39.257237 43945] Using default compression level 1
+[2023-10-05T14:22:39.257531 43945] Stored a6c84mblhgic9jf1ca74e4892hh3t4itc in primary storage (/home/elias/.cache/Nuitka/ccache/a/6/c84mblhgic9jf1ca74e4892hh3t4itcM)
+[2023-10-05T14:22:39.257542 43945] Result: cache_miss
+[2023-10-05T14:22:39.257544 43945] Result: direct_cache_miss
+[2023-10-05T14:22:39.257546 43945] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.257547 43945] Result: primary_storage_miss
+[2023-10-05T14:22:39.257583 43945] Acquired lock /home/elias/.cache/Nuitka/ccache/a/stats.lock
+[2023-10-05T14:22:39.257666 43945] Releasing lock /home/elias/.cache/Nuitka/ccache/a/stats.lock
+[2023-10-05T14:22:39.257676 43945] Unlink /home/elias/.cache/Nuitka/ccache/a/stats.lock
+[2023-10-05T14:22:39.257688 43945] Acquired lock /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.257737 43945] Releasing lock /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.257745 43945] Unlink /home/elias/.cache/Nuitka/ccache/7/stats.lock
+[2023-10-05T14:22:39.257751 43945] Unlink /run/user/1000/ccache-tmp/tmp.stderr.ZWWANp
+[2023-10-05T14:22:39.257754 43945] Unlink /run/user/1000/ccache-tmp/tmp.stdout.JxdzBl
+[2023-10-05T14:22:39.257757 43945] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.90YDNC
+[2023-10-05T14:22:39.257760 43945] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Q1gtn8.i
+[2023-10-05T14:22:39.257860 43945] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Q1gtn8
+[2023-10-05T14:22:39.294181 43950] Using default compression level 1
+[2023-10-05T14:22:39.294277 43950] Storing result file module._virtualenv.o
+[2023-10-05T14:22:39.294282 43950] Storing embedded file #0 .o (409928 bytes) from module._virtualenv.o
+[2023-10-05T14:22:39.295302 43950] Stored 0a95ueh4d0d1v55fcu44o73u29in9gtg2 in primary storage (/home/elias/.cache/Nuitka/ccache/0/a/95ueh4d0d1v55fcu44o73u29in9gtg2R)
+[2023-10-05T14:22:39.295320 43950] Adding result key to /home/elias/.cache/Nuitka/ccache/d/5/00cslsifembmsb6kbeajph1fpdeq1eeM
+[2023-10-05T14:22:39.295740 43950] Using default compression level 1
+[2023-10-05T14:22:39.296186 43950] Stored d500cslsifembmsb6kbeajph1fpdeq1ee in primary storage (/home/elias/.cache/Nuitka/ccache/d/5/00cslsifembmsb6kbeajph1fpdeq1eeM)
+[2023-10-05T14:22:39.296203 43950] Result: cache_miss
+[2023-10-05T14:22:39.296206 43950] Result: direct_cache_miss
+[2023-10-05T14:22:39.296207 43950] Result: preprocessed_cache_miss
+[2023-10-05T14:22:39.296209 43950] Result: primary_storage_miss
+[2023-10-05T14:22:39.296248 43950] Acquired lock /home/elias/.cache/Nuitka/ccache/d/stats.lock
+[2023-10-05T14:22:39.296349 43950] Releasing lock /home/elias/.cache/Nuitka/ccache/d/stats.lock
+[2023-10-05T14:22:39.296360 43950] Unlink /home/elias/.cache/Nuitka/ccache/d/stats.lock
+[2023-10-05T14:22:39.296373 43950] Acquired lock /home/elias/.cache/Nuitka/ccache/0/stats.lock
+[2023-10-05T14:22:39.296432 43950] Releasing lock /home/elias/.cache/Nuitka/ccache/0/stats.lock
+[2023-10-05T14:22:39.296440 43950] Unlink /home/elias/.cache/Nuitka/ccache/0/stats.lock
+[2023-10-05T14:22:39.296459 43950] Unlink /run/user/1000/ccache-tmp/tmp.stderr.gP4EjL
+[2023-10-05T14:22:39.296462 43950] Unlink /run/user/1000/ccache-tmp/tmp.stdout.F0Gpg5
+[2023-10-05T14:22:39.296466 43950] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.FyiONj
+[2023-10-05T14:22:39.296468 43950] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Kfvdm0.i
+[2023-10-05T14:22:39.296591 43950] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.Kfvdm0
+[2023-10-05T14:22:39.401019 43971] Got result key from preprocessor
+[2023-10-05T14:22:39.410638 43971] No e1ed4d17stsp758nopbfat3ba0gpnlvti in primary storage
+[2023-10-05T14:22:39.410661 43971] Running real compiler
+[2023-10-05T14:22:39.410691 43971] Executing /usr/bin/gcc -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -Wunused-but-set-variable -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -Og -g -feliminate-unused-debug-types -Wall -Wno-error=strict-aliasing -Wno-strict-aliasing -Wno-error=format -Wno-format -Werror -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_LINKER -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -DNUITKA_FILE_REFERENCE_ORIGINAL_MODE -I/usr/include/python3.11 -I. -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/include -I/home/elias/Student/SemesterProject/pin-3.28-98749-g6643ecee5-gcc-linux/myTools/virtualenv/lib/python3.11/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/CompiledFunctionType.o static_src/CompiledFunctionType.c
+[2023-10-05T14:22:40.906657 43971] Using default compression level 1
+[2023-10-05T14:22:40.906728 43971] Storing result file static_src/CompiledFunctionType.o
+[2023-10-05T14:22:40.906734 43971] Storing embedded file #0 .o (5678384 bytes) from static_src/CompiledFunctionType.o
+[2023-10-05T14:22:40.914479 43971] Stored e1ed4d17stsp758nopbfat3ba0gpnlvti in primary storage (/home/elias/.cache/Nuitka/ccache/e/1/ed4d17stsp758nopbfat3ba0gpnlvtiR)
+[2023-10-05T14:22:40.914498 43971] Adding result key to /home/elias/.cache/Nuitka/ccache/9/3/8ca9bla03n2jek78a73fg99bn2h8396M
+[2023-10-05T14:22:40.914959 43971] Using default compression level 1
+[2023-10-05T14:22:40.915340 43971] Stored 938ca9bla03n2jek78a73fg99bn2h8396 in primary storage (/home/elias/.cache/Nuitka/ccache/9/3/8ca9bla03n2jek78a73fg99bn2h8396M)
+[2023-10-05T14:22:40.915351 43971] Result: cache_miss
+[2023-10-05T14:22:40.915353 43971] Result: direct_cache_miss
+[2023-10-05T14:22:40.915354 43971] Result: preprocessed_cache_miss
+[2023-10-05T14:22:40.915355 43971] Result: primary_storage_miss
+[2023-10-05T14:22:40.915392 43971] Acquired lock /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:40.915463 43971] Releasing lock /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:40.915472 43971] Unlink /home/elias/.cache/Nuitka/ccache/9/stats.lock
+[2023-10-05T14:22:40.915485 43971] Acquired lock /home/elias/.cache/Nuitka/ccache/e/stats.lock
+[2023-10-05T14:22:40.915528 43971] Releasing lock /home/elias/.cache/Nuitka/ccache/e/stats.lock
+[2023-10-05T14:22:40.915535 43971] Unlink /home/elias/.cache/Nuitka/ccache/e/stats.lock
+[2023-10-05T14:22:40.915542 43971] Unlink /run/user/1000/ccache-tmp/tmp.stderr.Sjgutf
+[2023-10-05T14:22:40.915545 43971] Unlink /run/user/1000/ccache-tmp/tmp.stdout.Kx1OrM
+[2023-10-05T14:22:40.915547 43971] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.awYLyc
+[2023-10-05T14:22:40.915550 43971] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.N7JABL.i
+[2023-10-05T14:22:40.916479 43971] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.N7JABL
