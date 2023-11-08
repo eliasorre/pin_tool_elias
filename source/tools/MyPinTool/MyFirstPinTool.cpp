@@ -24,6 +24,13 @@ ofstream OutFile;
 ofstream SymTableFile;
 ofstream PatternsFile;
 
+// Turn off and on tasks
+bool countMemoryReads = false;
+bool saveReadAddresses = false;
+bool writeJumpAddresses = true;
+bool haveRollingBuffer = false;
+bool keepLastMOV = true;
+
 // Name of output file
 KNOB <string> KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool", "o", "first_tool.out", "output file");
 KNOB <string> KnobSymtableFile(KNOB_MODE_WRITEONCE, "pintool", "s", "symtable.out", "symtable file");
@@ -34,10 +41,15 @@ ADDRINT targetAddress;
 map<ADDRINT, int> readAddressMap; 
 map<ADDRINT, int> instrMap;
 map<ADDRINT, string> mnemonicMap;
+map<int, int> loadsSinceLastJmpMap; 
+
 std::set<ADDRINT> jumpAddresses; 
 std::set<ADDRINT> tableAddresses; 
+
 long numberOfJmps = 0;
 ADDRINT lastMOV_address = 0;
+bool startCountingWrites = false;
+int registerWritesSinceLastJmp = 0;
 
 std::vector<std::vector<string>> lastOperationsBeforeJumpVector;
 std::deque<string> lastTenInstructions;
@@ -71,18 +83,7 @@ VOID incrementMap(ADDRINT readAddress, ADDRINT insAddress) {
     else {
         readAddressMap[readAddress]++; 
     }
-    if (mnemonicMap[insAddress] == "MOV") {
-        lastMOV_address = readAddress;
-    }
     instrMap[insAddress - mainModuleBase]++;
-}
-
-void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
-    numberOfJmps++;
-    std::cout << "\rCount of jumps: " << numberOfJmps << std::flush;
-    std::vector<string> recentInstructions(lastTenInstructions.begin(), lastTenInstructions.end());
-    lastOperationsBeforeJumpVector.push_back(recentInstructions);
-    tableAddresses.insert(lastMOV_address);
 }
 
 void addInstructionToQueue(ADDRINT instructionAddress) {
@@ -90,38 +91,71 @@ void addInstructionToQueue(ADDRINT instructionAddress) {
     if (lastTenInstructions.size() > 10) {
         lastTenInstructions.pop_back();
     }
-    if (instructionAddress - mainModuleBase == targetAddress) {
-        instructionIsSharedJumpPoint(instructionAddress);
-    }
 }
 
-void writeJumpAddress(ADDRINT regValue) {
-    jumpAddresses.insert(regValue);
+void updateLastMove(ADDRINT readAddress) { lastMOV_address = readAddress; }
+
+void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
+    numberOfJmps++;
+    std::cout << "\rCount of jumps: " << numberOfJmps << std::flush;
+    if (haveRollingBuffer){
+        std::vector<string> recentInstructions(lastTenInstructions.begin(), lastTenInstructions.end());
+        lastOperationsBeforeJumpVector.push_back(recentInstructions);
+    }
+    if (keepLastMOV) {
+        tableAddresses.insert(lastMOV_address);
+    }
+
+    startCountingWrites = true;
+    loadsSinceLastJmpMap[registerWritesSinceLastJmp]++;
+    registerWritesSinceLastJmp = 0;
 }
+
+void writeJumpAddress(ADDRINT instructionAddress, ADDRINT regValue) {
+    jumpAddresses.insert(regValue);
+    instructionIsSharedJumpPoint(instructionAddress);
+}
+
+void incrementRegisterWrites() { if(startCountingWrites) registerWritesSinceLastJmp++; }
 
 // If instruction is memory read we want to add it to the map
 VOID Instruction(INS ins, VOID* v) {
     // Ensure the instruction is from the main module
     if (INS_Address(ins) >= mainModuleBase && INS_Address(ins) <= mainModuleHigh) {  
-        mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
-        // Add the instruction to the rolling buffer
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)addInstructionToQueue,
-            IARG_INST_PTR,  
-            IARG_END
-        );
+        if (haveRollingBuffer) {
+            mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
+            // Add the instruction to the rolling buffer
+            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)addInstructionToQueue,
+                IARG_INST_PTR,  
+                IARG_END
+            );
+        }
 
-        if (INS_Address(ins) - mainModuleBase == targetAddress) {
+        if (keepLastMOV && INS_Mnemonic(ins) == "MOV") {
+            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) updateLastMove, IARG_INST_PTR, IARG_END);
+        }
+
+
+        for (UINT32 i = 0; i < INS_OperandCount(ins); i++) {
+            REG reg = INS_OperandReg(ins, i);
+            if (INS_OperandWritten(ins, i) && REG_StringShort(reg) == "r13") {
+                INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) incrementRegisterWrites, IARG_END); 
+            }
+        }
+
+        if (INS_Address(ins) - mainModuleBase == targetAddress && writeJumpAddresses) {
             for (UINT32 i = 0; i < INS_OperandCount(ins); i++) {
                 REG reg = INS_OperandReg(ins, i);
                 if (INS_OperandRead(ins, i)) {
                     INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) writeJumpAddress,
+                    IARG_INST_PTR,
                     IARG_REG_VALUE, reg, 
                     IARG_END);
                 }
             }
         }
 
-        if (INS_IsMemoryRead(ins)) {
+        if (INS_IsMemoryRead(ins) && countMemoryReads) {
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)incrementMap, 
                 IARG_MEMORYREAD_EA, 
                 IARG_INST_PTR, 
@@ -146,9 +180,11 @@ std::unordered_map<std::string, int> CountPatterns(const std::vector<std::vector
 
 void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, const std::string& filename) {
     PatternsFile.setf(ios::showbase);    
-    PatternsFile << "Addresses read from table" << std::endl;
-    for (ADDRINT tableAddress : tableAddresses) {
-        PatternsFile << std::hex << tableAddress - mainModuleBase << std::endl;
+    if (keepLastMOV) {
+        PatternsFile << "Addresses read from table" << std::endl;
+        for (ADDRINT tableAddress : tableAddresses) {
+            PatternsFile << std::hex << tableAddress - mainModuleBase << std::endl;
+        }
     }
     PatternsFile << std::endl;
     PatternsFile << "Addresses jumped to:" << std::endl;
@@ -157,32 +193,42 @@ void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, cons
     }
     PatternsFile << std::endl;
     for (const auto& [pattern, count] : counts) {
-        PatternsFile << pattern << ": " << count << "\n";
+        PatternsFile << pattern << ": "<< std::dec << count << "\n";
+    }
+    PatternsFile << std::endl << "Writes between jumps: writes, count" << std::endl;
+    for (const auto& [writes, count] : loadsSinceLastJmpMap) {
+        PatternsFile << std::dec << writes << ": " << std::dec << count << "\n";
     }
     PatternsFile.close();
 }
 
-VOID Fini(INT32 code, VOID* v) {        
+void WriteMemoryReadsToFile() {
     OutFile.setf(ios::showbase);
     OutFile << std::endl; 
-    std::printf("Generating the memory load address counts");
+    std::cout << "Generating the memory load address counts" << std::endl;
     OutFile << "Memory loads - Address: Count:" << std::endl;
     for (const auto& pair : readAddressMap) {
         OutFile << pair.first << " " << pair.second << std::endl; 
     }
     OutFile << std::endl; 
-    std::printf("Generating the load instruction adress counts");
+    std::cout << "Generating the load instruction adress counts" << std::endl;
     OutFile << "Instructions - Address: Count:" << std::endl;
     for (const auto& pair : instrMap) {
         OutFile << pair.first << " " << pair.second << std::endl; 
     }
     OutFile << std::endl; 
     OutFile.close();
+}
+
+VOID Fini(INT32 code, VOID* v) {        
+    if (countMemoryReads) WriteMemoryReadsToFile();
     
     // Generate the instruction patterns
-    std::printf("Generating the instruction patterns");
-    auto patternCounts = CountPatterns(lastOperationsBeforeJumpVector);
-    WriteResultsToFile(patternCounts, "output/patterns_count.txt");
+    if (writeJumpAddresses) {
+        std::cout << "Generating the instruction patterns" << std::endl;
+        auto patternCounts = CountPatterns(lastOperationsBeforeJumpVector);
+        WriteResultsToFile(patternCounts, "output/patterns_count.txt");
+    }
 }
 
 // Print Help Message
@@ -206,6 +252,7 @@ int main(int argc, char* argv[]) {
     result = strtoull(KnobTargetAddress.Value().c_str(), nullptr, 16);
     if (result == 0) {
         std::printf("Str was not a number");
+        return 1;
     } else if (result == ULLONG_MAX && errno) {
         std::printf("the value of str does not fit in unsigned long long");
     }
