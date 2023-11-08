@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 # Step 1: Extract all the jump targets
-with open('/home/elias/SemesterProject/pin_tool_elias/myTools/programs/test.s', 'r') as file:
+with open('/home/elias/SemesterProject/pin_tool_elias/myTools/programs/test2.s', 'r') as file:
     lines = file.readlines()
 
 # Use a defaultdict to count occurrences

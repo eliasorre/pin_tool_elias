@@ -1,3 +1,4 @@
+#define PIN_DEPRECATED_WARNINGS 0
 #include <stdio.h>
 #include <map>
 #include <iostream>
@@ -5,13 +6,14 @@
 #include <fcntl.h>
 #include <vector>
 #include <deque>
+#include <set>
 #include <unordered_map>
 #include <inttypes.h>
+#include <chrono>
 #include "pin.H"
 
 #include "dwarf.h"
 #include "libdwarf.h"
-
 
 using std::string;
 using std::map;
@@ -31,10 +33,14 @@ ADDRINT targetAddress;
 
 map<ADDRINT, int> readAddressMap; 
 map<ADDRINT, int> instrMap;
+map<ADDRINT, string> mnemonicMap;
+std::set<ADDRINT> jumpAddresses; 
+std::set<ADDRINT> tableAddresses; 
+long numberOfJmps = 0;
+ADDRINT lastMOV_address = 0;
 
 std::vector<std::vector<string>> lastOperationsBeforeJumpVector;
 std::deque<string> lastTenInstructions;
-
 
 ADDRINT mainModuleBase = 0;
 ADDRINT mainModuleHigh = 0;
@@ -65,24 +71,54 @@ VOID incrementMap(ADDRINT readAddress, ADDRINT insAddress) {
     else {
         readAddressMap[readAddress]++; 
     }
+    if (mnemonicMap[insAddress] == "MOV") {
+        lastMOV_address = readAddress;
+    }
     instrMap[insAddress - mainModuleBase]++;
+}
+
+void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
+    numberOfJmps++;
+    std::cout << "\rCount of jumps: " << numberOfJmps << std::flush;
+    std::vector<string> recentInstructions(lastTenInstructions.begin(), lastTenInstructions.end());
+    lastOperationsBeforeJumpVector.push_back(recentInstructions);
+    tableAddresses.insert(lastMOV_address);
+}
+
+void addInstructionToQueue(ADDRINT instructionAddress) {
+    lastTenInstructions.push_front(mnemonicMap[instructionAddress]);
+    if (lastTenInstructions.size() > 10) {
+        lastTenInstructions.pop_back();
+    }
+    if (instructionAddress - mainModuleBase == targetAddress) {
+        instructionIsSharedJumpPoint(instructionAddress);
+    }
+}
+
+void writeJumpAddress(ADDRINT regValue) {
+    jumpAddresses.insert(regValue);
 }
 
 // If instruction is memory read we want to add it to the map
 VOID Instruction(INS ins, VOID* v) {
     // Ensure the instruction is from the main module
     if (INS_Address(ins) >= mainModuleBase && INS_Address(ins) <= mainModuleHigh) {  
+        mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
         // Add the instruction to the rolling buffer
-        lastTenInstructions.push_front(INS_Mnemonic(ins));
-        if (lastTenInstructions.size() > 10) {
-            lastTenInstructions.pop_back();
-        }
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)addInstructionToQueue,
+            IARG_INST_PTR,  
+            IARG_END
+        );
 
-        // If this instruction's address matches the target, record the last ten instructions
         if (INS_Address(ins) - mainModuleBase == targetAddress) {
-            std::printf("Found address! \n");
-            std::vector<string> recentInstructions(lastTenInstructions.begin(), lastTenInstructions.end());
-            lastOperationsBeforeJumpVector.push_back(recentInstructions);
+            for (UINT32 i = 0; i < INS_OperandCount(ins); i++) {
+                REG reg = INS_OperandReg(ins, i);
+                if (INS_OperandRead(ins, i)) {
+                    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) writeJumpAddress,
+                    IARG_REG_VALUE, reg, 
+                    IARG_END);
+                }
+            }
         }
 
         if (INS_IsMemoryRead(ins)) {
@@ -94,6 +130,7 @@ VOID Instruction(INS ins, VOID* v) {
         }
     }
 }
+
 
 std::unordered_map<std::string, int> CountPatterns(const std::vector<std::vector<string>>& patterns) {
     std::unordered_map<std::string, int> counts;
@@ -109,13 +146,23 @@ std::unordered_map<std::string, int> CountPatterns(const std::vector<std::vector
 
 void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, const std::string& filename) {
     PatternsFile.setf(ios::showbase);    
+    PatternsFile << "Addresses read from table" << std::endl;
+    for (ADDRINT tableAddress : tableAddresses) {
+        PatternsFile << std::hex << tableAddress - mainModuleBase << std::endl;
+    }
+    PatternsFile << std::endl;
+    PatternsFile << "Addresses jumped to:" << std::endl;
+    for (ADDRINT jumpAddress : jumpAddresses) {
+        PatternsFile << std::hex << jumpAddress - mainModuleBase << std::endl; 
+    }
+    PatternsFile << std::endl;
     for (const auto& [pattern, count] : counts) {
         PatternsFile << pattern << ": " << count << "\n";
     }
     PatternsFile.close();
 }
 
-VOID Fini(INT32 code, VOID* v) {
+VOID Fini(INT32 code, VOID* v) {        
     OutFile.setf(ios::showbase);
     OutFile << std::endl; 
     std::printf("Generating the memory load address counts");
@@ -168,7 +215,7 @@ int main(int argc, char* argv[]) {
     // Fix base adress to calculate the correct addresses
     IMG_AddInstrumentFunction(Image, 0);
 
-    std::printf("Starting PinTool!");
+    std::printf("Starting PinTool! \n");
 
     PIN_InitSymbols();
     // Register Instruction to be called instrument instructions
