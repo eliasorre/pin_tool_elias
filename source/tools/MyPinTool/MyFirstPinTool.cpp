@@ -30,6 +30,7 @@ bool saveReadAddresses = false;
 bool writeJumpAddresses = true;
 bool haveRollingBuffer = false;
 bool keepLastMOV = true;
+bool keepMemoryLoads = true;
 
 // Name of output file
 KNOB <string> KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool", "o", "first_tool.out", "output file");
@@ -43,13 +44,22 @@ map<ADDRINT, int> instrMap;
 map<ADDRINT, string> mnemonicMap;
 map<int, int> loadsSinceLastJmpMap; 
 
+map<int, int> instructionsBetweenJmps;
+int granuarilty = 10;
+
 std::set<ADDRINT> jumpAddresses; 
 std::set<ADDRINT> tableAddresses; 
+std::set<ADDRINT> memoryReadsToR13;
 
 long numberOfJmps = 0;
 ADDRINT lastMOV_address = 0;
+ADDRINT lastMemoryReadAddress = 0;
+
 bool startCountingWrites = false;
 int registerWritesSinceLastJmp = 0;
+
+int startCountingInstructions = true;
+int numberOfInstructionsBetweenJmp = 0;
 
 std::vector<std::vector<string>> lastOperationsBeforeJumpVector;
 std::deque<string> lastTenInstructions;
@@ -93,7 +103,13 @@ void addInstructionToQueue(ADDRINT instructionAddress) {
     }
 }
 
+void commonInstruction(ADDRINT instructionAddress) {
+    if (startCountingInstructions) numberOfInstructionsBetweenJmp++;
+    if (haveRollingBuffer) addInstructionToQueue(instructionAddress);
+}
+
 void updateLastMove(ADDRINT readAddress) { lastMOV_address = readAddress; }
+void lastMemoryLoad(ADDRINT memoryReadAddress) { lastMemoryReadAddress = memoryReadAddress; }
 
 void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
     numberOfJmps++;
@@ -102,9 +118,11 @@ void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
         std::vector<string> recentInstructions(lastTenInstructions.begin(), lastTenInstructions.end());
         lastOperationsBeforeJumpVector.push_back(recentInstructions);
     }
-    if (keepLastMOV) {
-        tableAddresses.insert(lastMOV_address);
-    }
+    if (keepLastMOV) tableAddresses.insert(lastMOV_address);
+    if (startCountingInstructions) {
+        instructionsBetweenJmps[(int) numberOfInstructionsBetweenJmp/granuarilty]++;
+        numberOfInstructionsBetweenJmp = 0;
+    } 
 
     startCountingWrites = true;
     loadsSinceLastJmpMap[registerWritesSinceLastJmp]++;
@@ -116,20 +134,27 @@ void writeJumpAddress(ADDRINT instructionAddress, ADDRINT regValue) {
     instructionIsSharedJumpPoint(instructionAddress);
 }
 
-void incrementRegisterWrites() { if(startCountingWrites) registerWritesSinceLastJmp++; }
+void incrementRegisterWrites() { 
+    if(startCountingWrites) registerWritesSinceLastJmp++; 
+    if (keepMemoryLoads) memoryReadsToR13.insert(lastMemoryReadAddress);
+}
 
 // If instruction is memory read we want to add it to the map
 VOID Instruction(INS ins, VOID* v) {
     // Ensure the instruction is from the main module
     if (INS_Address(ins) >= mainModuleBase && INS_Address(ins) <= mainModuleHigh) {  
-        if (haveRollingBuffer) {
-            mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
-            // Add the instruction to the rolling buffer
-            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)addInstructionToQueue,
-                IARG_INST_PTR,  
-                IARG_END
-            );
+        if (haveRollingBuffer) mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
+        
+        // Add the instruction to the rolling buffer
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) commonInstruction,
+            IARG_INST_PTR,  
+            IARG_END
+        );
+
+        if (keepMemoryLoads && INS_IsMemoryRead(ins)) {
+            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) lastMemoryLoad, IARG_MEMORYREAD_EA, IARG_END);
         }
+        
 
         if (keepLastMOV && INS_Mnemonic(ins) == "MOV") {
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) updateLastMove, IARG_INST_PTR, IARG_END);
@@ -192,11 +217,22 @@ void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, cons
         PatternsFile << std::hex << jumpAddress - mainModuleBase << std::endl; 
     }
     PatternsFile << std::endl;
+    PatternsFile << "Addresses read from into R13:" << std::endl;
+    for (ADDRINT memoryReads : memoryReadsToR13) {
+        PatternsFile << std::hex << memoryReads << std::endl; 
+    }
+
+    PatternsFile << std::endl;
     for (const auto& [pattern, count] : counts) {
         PatternsFile << pattern << ": "<< std::dec << count << "\n";
     }
     PatternsFile << std::endl << "Writes between jumps: writes, count" << std::endl;
     for (const auto& [writes, count] : loadsSinceLastJmpMap) {
+        PatternsFile << std::dec << writes << ": " << std::dec << count << "\n";
+    }
+    
+    PatternsFile << std::endl << "Instructions between jumps: writes, count" << std::endl;
+    for (const auto& [writes, count] : instructionsBetweenJmps) {
         PatternsFile << std::dec << writes << ": " << std::dec << count << "\n";
     }
     PatternsFile.close();
