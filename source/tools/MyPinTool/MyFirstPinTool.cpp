@@ -23,6 +23,8 @@ using std::ios;
 ofstream OutFile;
 ofstream SymTableFile;
 ofstream PatternsFile;
+ofstream MemoryReadsToR13File;
+
 
 // Turn off and on tasks
 bool countMemoryReads = false;
@@ -36,6 +38,7 @@ bool keepMemoryLoads = true;
 KNOB <string> KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool", "o", "first_tool.out", "output file");
 KNOB <string> KnobSymtableFile(KNOB_MODE_WRITEONCE, "pintool", "s", "symtable.out", "symtable file");
 KNOB <string> KnobPatternsFile(KNOB_MODE_WRITEONCE, "pintool", "patterns", "patterns.out", "patterns file");
+KNOB <string> KnobMemoryReadsToR13File(KNOB_MODE_WRITEONCE, "pintool", "memoryReadsToR13", "memoryReadsR13.out", "memory reads to R13 file");
 KNOB <string> KnobTargetAddress(KNOB_MODE_WRITEONCE, "pintool", "adr", "-1", "Address where the jump happens");
 ADDRINT targetAddress; 
 
@@ -49,7 +52,14 @@ int granuarilty = 10;
 
 std::set<ADDRINT> jumpAddresses; 
 std::set<ADDRINT> tableAddresses; 
-std::set<ADDRINT> memoryReadsToR13;
+
+struct R13MemoryReads {
+    ADDRINT readAddress;
+    bool directMemoryRead;
+    long timeStamp;
+};
+
+std::vector<R13MemoryReads> memoryReadsToR13;
 
 long numberOfJmps = 0;
 ADDRINT lastMOV_address = 0;
@@ -134,9 +144,26 @@ void writeJumpAddress(ADDRINT instructionAddress, ADDRINT regValue) {
     instructionIsSharedJumpPoint(instructionAddress);
 }
 
-void incrementRegisterWrites() { 
+long timeStamp = 0;
+void directRegisterWrite(ADDRINT memoryReadAddress) { 
     if(startCountingWrites) registerWritesSinceLastJmp++; 
-    if (keepMemoryLoads) memoryReadsToR13.insert(lastMemoryReadAddress);
+    if (keepMemoryLoads) {
+        R13MemoryReads memoryRead;
+        memoryRead.timeStamp = timeStamp++;
+        memoryRead.readAddress = memoryReadAddress;
+        memoryRead.directMemoryRead = true;
+        memoryReadsToR13.push_back(memoryRead);
+    }
+}
+void indirectRegisterWrite() {
+    if(startCountingWrites) registerWritesSinceLastJmp++; 
+    if (keepMemoryLoads) {
+        R13MemoryReads memoryRead;
+        memoryRead.timeStamp = timeStamp++;
+        memoryRead.readAddress = lastMemoryReadAddress;
+        memoryRead.directMemoryRead = false;
+        memoryReadsToR13.push_back(memoryRead);
+    }
 }
 
 // If instruction is memory read we want to add it to the map
@@ -164,7 +191,11 @@ VOID Instruction(INS ins, VOID* v) {
         for (UINT32 i = 0; i < INS_OperandCount(ins); i++) {
             REG reg = INS_OperandReg(ins, i);
             if (INS_OperandWritten(ins, i) && REG_StringShort(reg) == "r13") {
-                INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) incrementRegisterWrites, IARG_END); 
+                if (INS_IsMemoryRead(ins)) {
+                    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) directRegisterWrite, IARG_MEMORYREAD_EA, IARG_END); 
+                } else {
+                    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) indirectRegisterWrite, IARG_END); 
+                }
             }
         }
 
@@ -217,12 +248,6 @@ void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, cons
         PatternsFile << std::hex << jumpAddress - mainModuleBase << std::endl; 
     }
     PatternsFile << std::endl;
-    PatternsFile << "Addresses read from into R13:" << std::endl;
-    for (ADDRINT memoryReads : memoryReadsToR13) {
-        PatternsFile << std::hex << memoryReads << std::endl; 
-    }
-
-    PatternsFile << std::endl;
     for (const auto& [pattern, count] : counts) {
         PatternsFile << pattern << ": "<< std::dec << count << "\n";
     }
@@ -236,6 +261,13 @@ void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, cons
         PatternsFile << std::dec << writes << ": " << std::dec << count << "\n";
     }
     PatternsFile.close();
+
+    MemoryReadsToR13File.setf(ios::showbase);
+    MemoryReadsToR13File << "Addresses read from into R13:" << std::endl;
+    for (R13MemoryReads memoryRead : memoryReadsToR13) {
+        MemoryReadsToR13File << std::hex << memoryRead.readAddress << " " << std::dec << memoryRead.directMemoryRead << " " << memoryRead.timeStamp << std::endl; 
+    }
+    MemoryReadsToR13File.close();
 }
 
 void WriteMemoryReadsToFile() {
@@ -281,6 +313,7 @@ int main(int argc, char* argv[]) {
     OutFile.open(KnobOutputFile.Value().c_str());
     SymTableFile.open(KnobSymtableFile.Value().c_str());
     PatternsFile.open(KnobPatternsFile.Value().c_str());
+    MemoryReadsToR13File.open(KnobMemoryReadsToR13File.Value().c_str());
 
     // Find the targeted address
     unsigned long long result;
