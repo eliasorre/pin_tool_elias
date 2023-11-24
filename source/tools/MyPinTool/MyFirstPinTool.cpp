@@ -42,7 +42,16 @@ KNOB <string> KnobMemoryReadsToR13File(KNOB_MODE_WRITEONCE, "pintool", "memoryRe
 KNOB <string> KnobTargetAddress(KNOB_MODE_WRITEONCE, "pintool", "adr", "-1", "Address where the jump happens");
 ADDRINT targetAddress; 
 
-map<ADDRINT, int> readAddressMap; 
+struct MemoryReads {
+    ADDRINT readAddress;
+    ADDRINT insAddress;
+    
+    bool operator <(const MemoryReads& memoryRead) const {
+        return (insAddress < memoryRead.insAddress) || ((!(memoryRead.insAddress < insAddress) && (readAddress < memoryRead.readAddress)));
+    }
+};
+
+std::set<MemoryReads> memoryReadsMap; 
 map<ADDRINT, int> instrMap;
 map<ADDRINT, string> mnemonicMap;
 map<int, int> loadsSinceLastJmpMap; 
@@ -57,6 +66,7 @@ struct R13MemoryReads {
     ADDRINT readAddress;
     bool directMemoryRead;
     long timeStamp;
+    bool lastWriteBeforeJMP;
 };
 
 std::vector<R13MemoryReads> memoryReadsToR13;
@@ -96,14 +106,11 @@ VOID Image(IMG img, VOID* v) {
 
 
 // This function increments the times memoryAddr has been read 
-VOID incrementMap(ADDRINT readAddress, ADDRINT insAddress) { 
-    if (readAddress >= mainModuleBase && readAddress <= mainModuleHigh) {
-        readAddressMap[readAddress - mainModuleBase]++; 
-    }
-    else {
-        readAddressMap[readAddress]++; 
-    }
-    instrMap[insAddress - mainModuleBase]++;
+VOID addToMap(ADDRINT readAddress, ADDRINT insAddress) { 
+    MemoryReads memoryRead;
+    memoryRead.insAddress = insAddress;
+    memoryRead.readAddress = readAddress;
+    memoryReadsMap.insert(memoryRead);
 }
 
 void addInstructionToQueue(ADDRINT instructionAddress) {
@@ -133,7 +140,9 @@ void instructionIsSharedJumpPoint(ADDRINT instructionAddress) {
         instructionsBetweenJmps[(int) numberOfInstructionsBetweenJmp/granuarilty]++;
         numberOfInstructionsBetweenJmp = 0;
     } 
-
+    R13MemoryReads memoryRead = memoryReadsToR13.back();
+    memoryRead.lastWriteBeforeJMP = true;
+    memoryReadsToR13.back() = memoryRead; 
     startCountingWrites = true;
     loadsSinceLastJmpMap[registerWritesSinceLastJmp]++;
     registerWritesSinceLastJmp = 0;
@@ -149,6 +158,7 @@ void directRegisterWrite(ADDRINT memoryReadAddress) {
     if(startCountingWrites) registerWritesSinceLastJmp++; 
     if (keepMemoryLoads) {
         R13MemoryReads memoryRead;
+        memoryRead.lastWriteBeforeJMP = false;
         memoryRead.timeStamp = timeStamp++;
         memoryRead.readAddress = memoryReadAddress;
         memoryRead.directMemoryRead = true;
@@ -159,11 +169,28 @@ void indirectRegisterWrite() {
     if(startCountingWrites) registerWritesSinceLastJmp++; 
     if (keepMemoryLoads) {
         R13MemoryReads memoryRead;
+        memoryRead.lastWriteBeforeJMP = false;
         memoryRead.timeStamp = timeStamp++;
         memoryRead.readAddress = lastMemoryReadAddress;
         memoryRead.directMemoryRead = false;
         memoryReadsToR13.push_back(memoryRead);
     }
+}
+
+enum PatternState {
+    PS_NONE,
+    PS_MOVZWL_REGX,
+    PS_OR_REGX_R13D
+};
+
+
+PatternState currentState = PS_NONE;
+std::set<ADDRINT> possibleLoadInstrAddresses; 
+std::set<ADDRINT> possibleLoadInstrAddresses; 
+std::set<UINT_32> monitoredRegs;
+
+void PossibleBytecodeLoad(ADDRINT instrAddress, ADDRINT memoryLoadAddress, UINT32 regId) {
+    return;
 }
 
 // If instruction is memory read we want to add it to the map
@@ -172,6 +199,18 @@ VOID Instruction(INS ins, VOID* v) {
     if (INS_Address(ins) >= mainModuleBase && INS_Address(ins) <= mainModuleHigh) {  
         if (haveRollingBuffer) mnemonicMap[INS_Address(ins)] = INS_Mnemonic(ins);
         
+        if (INS_Opcode(ins) == XED_ICLASS_MOVZX && INS_IsMemoryRead(ins)) {
+            REG destReg = INS_RegW(ins, 0); 
+            UINT32 regId = static_cast<UINT32>(destReg);
+            std::cout << "Reg Id: " << regId << " destReg: " << REG_StringShort(destReg); 
+            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)PossibleBytecodeLoad,
+                IARG_INST_PTR, 
+                IARG_MEMORYREAD_EA, 
+                IARG_UINT32, regId,
+                IARG_END
+            );
+        }
+
         // Add the instruction to the rolling buffer
         INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) commonInstruction,
             IARG_INST_PTR,  
@@ -205,14 +244,14 @@ VOID Instruction(INS ins, VOID* v) {
                 if (INS_OperandRead(ins, i)) {
                     INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) writeJumpAddress,
                     IARG_INST_PTR,
-                    IARG_REG_VALUE, reg, 
+                    IARG_REG_CONST_REFERENCE, reg, 
                     IARG_END);
                 }
             }
         }
 
-        if (INS_IsMemoryRead(ins) && countMemoryReads) {
-            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)incrementMap, 
+        if (INS_IsMemoryRead(ins)) {
+            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)addToMap, 
                 IARG_MEMORYREAD_EA, 
                 IARG_INST_PTR, 
                 IARG_END
@@ -263,34 +302,42 @@ void WriteResultsToFile(const std::unordered_map<std::string, int>& counts, cons
     PatternsFile.close();
 
     MemoryReadsToR13File.setf(ios::showbase);
-    MemoryReadsToR13File << "Addresses read from into R13:" << std::endl;
-    for (R13MemoryReads memoryRead : memoryReadsToR13) {
-        MemoryReadsToR13File << std::hex << memoryRead.readAddress << " " << std::dec << memoryRead.directMemoryRead << " " << memoryRead.timeStamp << std::endl; 
+    std::ifstream DebugFile;
+    DebugFile.open("debug.txt");
+    std::string line;
+    std::set<ADDRINT> byteCodeMemoryReads; 
+    MemoryReadsToR13File << "Address read:      At ins address: " << std::endl;
+    while (1) {
+        DebugFile >> line;
+        if (DebugFile.eof()) break;
+        ADDRINT hexValue = 0;
+        std::istringstream iss(line);
+        std::string word;
+        while (iss >> word) {
+            std::istringstream hexStream(word);
+            hexStream >> std::hex >> hexValue;
+            if (byteCodeMemoryReads.find(hexValue) == byteCodeMemoryReads.end()) {
+                for (MemoryReads memoryRead : memoryReadsMap) {
+                    if (memoryRead.readAddress == hexValue) {
+                        MemoryReadsToR13File << std::hex << hexValue << " " << memoryRead.insAddress - mainModuleBase << std::endl;
+                        byteCodeMemoryReads.insert(hexValue);
+                    }
+                }
+            }
+        }
     }
+    DebugFile.close();
+
+    // MemoryReadsToR13File << "Addresses read from into R13:" << std::endl;
+    // for (R13MemoryReads memoryRead : memoryReadsToR13) {
+    //     if (memoryRead.lastWriteBeforeJMP) {
+    //         MemoryReadsToR13File << std::hex << memoryRead.readAddress << " " << std::dec << memoryRead.directMemoryRead << " " << memoryRead.timeStamp << std::endl; 
+    //     }
+    // }
     MemoryReadsToR13File.close();
 }
 
-void WriteMemoryReadsToFile() {
-    OutFile.setf(ios::showbase);
-    OutFile << std::endl; 
-    std::cout << "Generating the memory load address counts" << std::endl;
-    OutFile << "Memory loads - Address: Count:" << std::endl;
-    for (const auto& pair : readAddressMap) {
-        OutFile << pair.first << " " << pair.second << std::endl; 
-    }
-    OutFile << std::endl; 
-    std::cout << "Generating the load instruction adress counts" << std::endl;
-    OutFile << "Instructions - Address: Count:" << std::endl;
-    for (const auto& pair : instrMap) {
-        OutFile << pair.first << " " << pair.second << std::endl; 
-    }
-    OutFile << std::endl; 
-    OutFile.close();
-}
-
 VOID Fini(INT32 code, VOID* v) {        
-    if (countMemoryReads) WriteMemoryReadsToFile();
-    
     // Generate the instruction patterns
     if (writeJumpAddresses) {
         std::cout << "Generating the instruction patterns" << std::endl;
