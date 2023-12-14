@@ -138,8 +138,8 @@ VOID OnOffsetLoad() {
         ByteCodeRead byteCodeRead;
         byteCodeRead.readAddress = it->readAddress;
         byteCodeRead.insAddress = it->insAddress;
-        possibleByteCodeLoads.erase(it);
         byteCodeReads.push_back(byteCodeRead);
+        possibleByteCodeLoads.clear();
     }
 }
 
@@ -162,10 +162,7 @@ VOID Instruction(INS ins, VOID* v) {
                     UINT32 regId = static_cast<UINT32>(destReg);
                     if (INS_Opcode(ins) == XED_ICLASS_MOVZX) {
                         REG sourceReg = INS_RegR(ins, 0);
-                        if (!(REG_StringShort(destReg) == "edx" && REG_StringShort(sourceReg) == "r13b")) {
-                            if (INS_Address(ins) - mainModuleBase == 0x265e52) {
-                                std::cout << "Gets captured load: " << REG_StringShort(destReg) << std::endl;
-                            }
+                        if (!(REG_StringShort(destReg) == "edx" && (REG_StringShort(sourceReg) == "r13b" || REG_StringShort(sourceReg) == "r12b"))) {
                             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)PossibleBytecodeLoad,
                                         IARG_INST_PTR, 
                                         IARG_MEMORYREAD_EA, 
@@ -184,7 +181,7 @@ VOID Instruction(INS ins, VOID* v) {
 
         if (INS_Opcode(ins) == XED_ICLASS_OR && INS_OperandIsReg(ins, 0) && INS_OperandIsReg(ins, 1)) {
             REG reg = INS_RegW(ins, 0);
-            if (REG_StringShort(reg) == "r13d") {
+            if (REG_StringShort(reg) == "r13d" || REG_StringShort(reg) == "r12d") {
                 REG sourceReg = INS_RegR(ins, 1);
                 if (sourceReg != REG_INVALID()) {
                     if (INS_Address(ins) - mainModuleBase == 0x265e99) {
@@ -201,7 +198,7 @@ VOID Instruction(INS ins, VOID* v) {
             REG sourceReg = INS_RegR(ins, 0);
             REG destReg = INS_RegW(ins, 0);
             if (destReg != REG_INVALID() && sourceReg != REG_INVALID()){
-                if (REG_StringShort(destReg) == "edx" && REG_StringShort(sourceReg) == "r13b") {
+                if (REG_StringShort(destReg) == "edx" && (REG_StringShort(sourceReg) == "r13b" || REG_StringShort(sourceReg) == "r12b")) {
                     INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)OnOffsetLoad, IARG_END);
                 }
             }  
@@ -229,6 +226,7 @@ std::unordered_map<std::string, int> CountPatterns(const std::vector<std::vector
 VOID Fini(INT32 code, VOID* v) {        
     // Generate the instruction patterns
     std::cout << "Time to generate results!" << std::endl;
+    std::cout << "Number of bytecode founds: " << std::dec << byteCodeReads.size() << std::endl;
     OutFile.setf(ios::showbase);
     for (ByteCodeRead byteCodeRead : byteCodeReads) {
         OutFile << std::hex << "MemoryAddress: " << byteCodeRead.readAddress << " InsAddress: " << byteCodeRead.insAddress << std::endl;
