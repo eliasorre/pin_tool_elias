@@ -108,7 +108,7 @@ VOID Instruction(INS ins, VOID* v) {
             );
         }
         else if (INS_IsIndirectBranchOrCall(ins)){
-            INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)indirectJump, IARG_INST_PTR, IARG_BRANCH_TARGET_ADDR, IARG_END);
+            if (!INS_IsCall(ins))INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)indirectJump, IARG_INST_PTR, IARG_BRANCH_TARGET_ADDR, IARG_END);
         }
     }
 }
