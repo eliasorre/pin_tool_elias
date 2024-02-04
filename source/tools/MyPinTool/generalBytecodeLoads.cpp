@@ -18,9 +18,11 @@ using std::ofstream;
 using std::ios;
 
 ofstream OutFile;
+ofstream DebugFile;
 
 // Name of output file
 KNOB <string> KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool", "o", "first_tool.out", "output file");
+KNOB <string> KnobDebugFile(KNOB_MODE_WRITEONCE, "pintool", "d", "tool_debug.out", "debug file");
 
 // Addresses used for 
 ADDRINT mainModuleBase = 0;
@@ -94,6 +96,7 @@ struct INS_WITH_REGS {
     string SOURCE_REGS[3];
     string DEST_REGS[3];
     bool IS_MEMORY_READ;
+    ADDRINT MEMORY_ADDR = 0L;
 };
 
 
@@ -108,6 +111,7 @@ struct TableLoadIns {
     ADDRINT LOAD_INDEX_ADDR;
     ADDRINT LOAD_TABLE_ADDR;
     ADDRINT JMP_ADDR;
+    ADDRINT LOAD_INDEX_MEMORY_EA;
     string READ_REGS[3];
     string WRITE_REGS[3];
 };
@@ -147,7 +151,7 @@ void copyRegs(INS_WITH_REGS &ins, REGS_STRINGS const* regs) {
     } 
 }  
 
-std::map<TableLoadIns, INT> tableLoadInstructions;
+std::vector<TableLoadIns> tableLoadInstructions;
 std::set<ADDRINT> indirectJumps;
 
 int tableLoadIndex = 0;
@@ -158,11 +162,12 @@ int insBufferIndex = 0;
 constexpr int SIZE_OF_INS_BUFFER = 500;
 std::vector<INS_WITH_REGS> instructionBuffer;
 
-VOID addToInstructionBuffer(ADDRINT PC, REGS_STRINGS* regs, BOOL memoryLoad) {
+VOID addToInstructionBuffer(ADDRINT PC, REGS_STRINGS* regs, BOOL memoryLoad, ADDRINT memoryEA) {
     INS_WITH_REGS ins;
     copyRegs(ins, regs);
     ins.IS_MEMORY_READ = memoryLoad;
     ins.INS_ADDR = PC;
+    if (memoryLoad) ins.MEMORY_ADDR = memoryEA; 
 
     if (instructionBuffer.size() < SIZE_OF_INS_BUFFER) {
         instructionBuffer.push_back(ins);
@@ -176,34 +181,65 @@ VOID addToInstructionBuffer(ADDRINT PC, REGS_STRINGS* regs, BOOL memoryLoad) {
 VOID memoryLoad(ADDRINT PC, ADDRINT readAddr, UINT32 readSize, REGS_STRINGS* regs) {
     PossibleTableLoadIns loadIns;
 
-    addToInstructionBuffer(PC, regs, true);
+    addToInstructionBuffer(PC, regs, true, readAddr);
 
-    if (readSize != 8) return;
-    UINT64 readValue;
-    if (regs->READ_REGS[1] == "") return;
-    // Safely read the memory content
-    if (PIN_SafeCopy(&readValue, reinterpret_cast<void*>(readAddr), readSize) == readSize) {
-        // Print the memory read value in hex
-        loadIns.PC = PC - mainModuleBase;
-        loadIns.LOADED_ADDR =  static_cast<ADDRINT>(readValue) - mainModuleBase;
-        copyRegs(loadIns, regs);
-        if (possibleTableLoadInsVector.size() < SIZE_OF_POSSIBLETABLELOADS) {
-            possibleTableLoadInsVector.push_back(loadIns);
+    if (readSize == 8){
+         UINT64 readValue;
+        if (regs->READ_REGS[1] == "") return;
+        // Safely read the memory content
+        if (PIN_SafeCopy(&readValue, reinterpret_cast<void*>(readAddr), readSize) == readSize) {
+            // Print the memory read value in hex
+            loadIns.PC = PC - mainModuleBase;
+            loadIns.LOADED_ADDR =  static_cast<ADDRINT>(readValue) - mainModuleBase;
+            copyRegs(loadIns, regs);
+            if (possibleTableLoadInsVector.size() < SIZE_OF_POSSIBLETABLELOADS) {
+                possibleTableLoadInsVector.push_back(loadIns);
+            } else {
+                possibleTableLoadInsVector[tableLoadIndex] = loadIns;
+            }
+            tableLoadIndex++;
+            if (tableLoadIndex == SIZE_OF_POSSIBLETABLELOADS) tableLoadIndex = 0;
         } else {
-            possibleTableLoadInsVector[tableLoadIndex] = loadIns;
+            std::cout << "Failed to read memory at address " << std::hex << readAddr << std::endl;
         }
-        tableLoadIndex++;
-        if (tableLoadIndex == SIZE_OF_POSSIBLETABLELOADS) tableLoadIndex = 0;
-    } else {
-        std::cout << "Failed to read memory at address " << std::hex << readAddr << std::endl;
+    } else if (readSize == 4) {
+        UINT32 readValue;
+        if (regs->READ_REGS[1] == "") return;
+        // Safely read the memory content
+        if (PIN_SafeCopy(&readValue, reinterpret_cast<void*>(readAddr), readSize) == readSize) {
+            // Print the memory read value in hex
+            loadIns.PC = PC - mainModuleBase;
+            loadIns.LOADED_ADDR =  static_cast<ADDRINT>(readValue) - mainModuleBase;
+            copyRegs(loadIns, regs);
+            if (possibleTableLoadInsVector.size() < SIZE_OF_POSSIBLETABLELOADS) {
+                possibleTableLoadInsVector.push_back(loadIns);
+            } else {
+                possibleTableLoadInsVector[tableLoadIndex] = loadIns;
+            }
+            tableLoadIndex++;
+            if (tableLoadIndex == SIZE_OF_POSSIBLETABLELOADS) tableLoadIndex = 0;
+        } else {
+            std::cout << "Failed to read memory at address " << std::hex << readAddr << std::endl;
+        }
     }
+   
 }
 
 VOID trackBackToFindSource(TableLoadIns& tableLoadIns) {
     string currReg = tableLoadIns.READ_REGS[1];
     std::vector<std::pair<string, ADDRINT>> trace;
     trace.push_back(std::make_pair(currReg, tableLoadIns.LOAD_TABLE_ADDR));
-    for (int i = 0; i < SIZE_OF_INS_BUFFER; i++) {
+    int startingIndex = 0;
+    
+    for (int i = 0; i < SIZE_OF_INS_BUFFER; i++) { 
+        startingIndex = i + 1;
+        INS_WITH_REGS curr_ins;
+        if (insBufferIndex - i >= 0) curr_ins = instructionBuffer[insBufferIndex - i];
+        else instructionBuffer[SIZE_OF_INS_BUFFER - (insBufferIndex - i)];
+        if (curr_ins.INS_ADDR - mainModuleBase == tableLoadIns.LOAD_TABLE_ADDR) break;
+    }
+
+    for (int i = startingIndex; i < SIZE_OF_INS_BUFFER; i++) {
         INS_WITH_REGS curr_ins;
         if (insBufferIndex - i >= 0) curr_ins = instructionBuffer[insBufferIndex - i];
         else instructionBuffer[SIZE_OF_INS_BUFFER - (insBufferIndex - i)];
@@ -218,12 +254,25 @@ VOID trackBackToFindSource(TableLoadIns& tableLoadIns) {
             }
             std::cout << "\n"; 
         } */
+        
 
-
-        if (registersAreOverlapping(curr_ins.DEST_REGS[0], currReg) || registersAreOverlapping(curr_ins.DEST_REGS[1], currReg)) {
+        if (registersAreOverlapping(curr_ins.DEST_REGS[0], currReg) 
+            || registersAreOverlapping(curr_ins.DEST_REGS[1], currReg) 
+            || registersAreOverlapping(curr_ins.DEST_REGS[2], currReg)) {
             //std::cout << "Current REG: " << currReg << " newReg: " << curr_ins.SOURCE_REGS[0] << "\n";
             tableLoadIns.LOAD_INDEX_ADDR = curr_ins.INS_ADDR - mainModuleBase;
-            if (curr_ins.IS_MEMORY_READ) return;
+            if (curr_ins.IS_MEMORY_READ) {
+                tableLoadIns.LOAD_INDEX_MEMORY_EA = curr_ins.MEMORY_ADDR;
+                for (std::pair<string, ADDRINT> pair : trace) {
+                    DebugFile << std::hex << pair.second << " "; 
+                    DebugFile << pair.first << " ";
+                }
+                DebugFile << "\n";
+                return;
+            } 
+            if (curr_ins.SOURCE_REGS[2] != "" || curr_ins.DEST_REGS[2] != "") {
+                DebugFile << "Problem! " << std::hex << curr_ins.INS_ADDR - mainModuleBase << "\n";
+            }
             if (curr_ins.SOURCE_REGS[0] != curr_ins.DEST_REGS[0]) currReg = curr_ins.SOURCE_REGS[0];
             else currReg = curr_ins.SOURCE_REGS[1];
             trace.push_back(std::make_pair(currReg, curr_ins.INS_ADDR - mainModuleBase));
@@ -248,8 +297,9 @@ VOID indirectJump(ADDRINT insAddress, ADDRINT targetAddr) {
             tableLoadIns.WRITE_REGS[i] = loadIns->WRITE_REGS[i]; 
         } 
         trackBackToFindSource(tableLoadIns);
-        tableLoadInstructions[tableLoadIns]++;
+        tableLoadInstructions.push_back(tableLoadIns);
         possibleTableLoadInsVector.clear();
+        if (tableLoadIns.LOAD_INDEX_ADDR != 0x999999999) OutFile << std::hex << tableLoadIns.LOAD_INDEX_MEMORY_EA << "\n";
     }
     indirectJumps.insert(insAddress - mainModuleBase); 
 }
@@ -270,7 +320,6 @@ VOID Instruction(INS ins, VOID* v) {
             for (size_t i = 0; i < numReadRegs; ++i) {
                 reg_strings->READ_REGS[i] = REG_StringShort(INS_RegR(ins, i));
             }
-            if ((INS_Address(ins) - mainModuleBase) == 0x24f2b3) printRegs(reg_strings);
 
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) memoryLoad,
                 IARG_INST_PTR,
@@ -303,6 +352,7 @@ VOID Instruction(INS ins, VOID* v) {
                     IARG_INST_PTR,
                     IARG_PTR, reg_strings,
                     IARG_BOOL, memoryRead,
+                    IARG_UINT64, 0x0,
                     IARG_END
                 );
             }
@@ -313,23 +363,26 @@ VOID Instruction(INS ins, VOID* v) {
 
 VOID Fini(INT32 code, VOID* v) {        
     std::cout << "Time to generate results!" << std::endl;
-    OutFile.setf(ios::showbase);
-    for (const auto &[tableLoadAddr, times]  : tableLoadInstructions) {
-        OutFile << std::hex << "LoadAddr: " << tableLoadAddr.LOAD_TABLE_ADDR << " JmpAddr: " << tableLoadAddr.JMP_ADDR << " INDEX FROM: " << tableLoadAddr.LOAD_INDEX_ADDR << " Readregs: ";
+    DebugFile.setf(ios::showbase);
+    DebugFile << "Number of bytecodes seen: " << std::dec << tableLoadInstructions.size() << "\n"; 
+/*     DebugFile << "Number of bytecodes correctly located: " << std::dec 
+        << (int) std::count_if(tableLoadInstructions.begin(), 
+        tableLoadInstructions.end(), [](const TableLoadIns tableLoad) {
+            return tableLoad.LOAD_INDEX_ADDR != 0x999999999; }
+        ) << "\n";   */
+ 
+/*     for (const auto &tableLoadAddr  : tableLoadInstructions) {
+        DebugFile << std::hex << "LoadAddr: " << tableLoadAddr.LOAD_TABLE_ADDR << " JmpAddr: " << tableLoadAddr.JMP_ADDR << " INDEX FROM: " << tableLoadAddr.LOAD_INDEX_ADDR << " Readregs: ";
         for (const string &readReg : tableLoadAddr.READ_REGS) {
-            OutFile << readReg << " ";
+            DebugFile << readReg << " ";
         } 
-        OutFile << " WriteRegs: ";
+        DebugFile << " WriteRegs: ";
         for (const string &writeReg : tableLoadAddr.WRITE_REGS) {
-            OutFile << writeReg << " ";
+            DebugFile << writeReg << " ";
         } 
-        OutFile << " Times: " << std::dec << times << "\n";
-    }
-    OutFile << "\n\n\n\n";
-    for (ADDRINT indirectJump : indirectJumps) {
-        OutFile << std::hex << "JmpInsAddr: " << indirectJump << "\n";
-    }
-    OutFile.close();
+    } */
+    DebugFile << "\n\n\n\n";
+    DebugFile.close();
 }
 
 // Print Help Message
@@ -343,6 +396,9 @@ int main(int argc, char* argv[]) {
     if (PIN_Init(argc, argv)) return Usage();
     
     OutFile.open(KnobOutputFile.Value().c_str());
+    DebugFile.open(KnobDebugFile.Value().c_str());
+    OutFile.setf(ios::showbase);
+    DebugFile.setf(ios::showbase);
 
     // Fix base adress to enable calculation of offset
     IMG_AddInstrumentFunction(Image, 0);
